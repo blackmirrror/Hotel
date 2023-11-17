@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:cardElevation="0dp"
+    app:contentPadding="16dp"
+    app:strokeWidth="0dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_key_weight"
+                android:text="@string/title_tour" />
+
+            <TextView
+                android:id="@+id/tour"
+                style="@style/TextAppearance.AppCompat.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_value_weight"
+                android:gravity="end"
+                tools:text="186 600 ₽" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="@dimen/margin_m">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_key_weight"
+                android:text="@string/title_fuel_charge" />
+
+            <TextView
+                android:id="@+id/fuel_charge"
+                style="@style/TextAppearance.AppCompat.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_value_weight"
+                android:gravity="end"
+                tools:text="9 300 ₽" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="@dimen/margin_m">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_key_weight"
+                android:text="@string/title_service_charge" />
+
+            <TextView
+                android:id="@+id/service_charge"
+                style="@style/TextAppearance.AppCompat.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_value_weight"
+                android:gravity="end"
+                tools:text="2 136 ₽" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="@dimen/margin_m">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_key_weight"
+                android:text="@string/title_for_payment" />
+
+            <TextView
+                android:id="@+id/total"
+                style="@style/TextAppearance.AppCompat.Primary"
+                android:layout_width="0dp"
+                android:textColor="?attr/colorPrimary"
+                android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_value_weight"
+                android:gravity="end"
+                tools:text="186 600 ₽" />
+        </TableRow>
+    </TableLayout>
+</com.google.android.material.card.MaterialCardView>

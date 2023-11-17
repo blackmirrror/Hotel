@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="0dp"
+    app:contentPaddingBottom="8dp"
+    app:contentPaddingLeft="16dp"
+    app:contentPaddingRight="16dp"
+    app:contentPaddingTop="8dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/gray_light">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        app:cornerRadius="12dp"
+        android:paddingVertical="@dimen/margin_m"
+        tools:text="Оплатить 198 036 ₽" />
+</com.google.android.material.card.MaterialCardView>
