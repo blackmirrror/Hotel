@@ -6,14 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.blackmirrror.hotel.databinding.FragmentHotelBinding
+import ru.blackmirrror.hotel.presentation.hotel.features.FeatureAdapter
+import ru.blackmirrror.hotel.presentation.hotel.peculiarity.PeculiarityAdapter
 
 
 class HotelFragment : Fragment() {
 
     private lateinit var binding: FragmentHotelBinding
     private val viewModel by viewModel<HotelViewModel>()
+
+    private lateinit var peculiarityAdapter: PeculiarityAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,7 +28,9 @@ class HotelFragment : Fragment() {
         binding = FragmentHotelBinding.inflate(inflater, container, false)
 
         setUpNavigation()
-        tempFun()
+        setUpFeatures()
+        setUpPeculiarities()
+        setUpFields()
 
         return binding.root
     }
@@ -33,14 +42,8 @@ class HotelFragment : Fragment() {
         }
     }
 
-    private fun tempFun() {
-//        val apiService = ApiFactory.create()
-//        val remoteDataSource = RemoteDataSourceImpl(apiService)
-//        val repository = HotelRepositoryImpl(remoteDataSource)
-//        val getHotelUseCase = GetHotelUseCase(repository)
-//        viewModel = HotelViewModel(getHotelUseCase)
-
-        viewModel.hotel.observe(viewLifecycleOwner) { hotel ->
+    private fun setUpFields() {
+            viewModel.hotel.observe(viewLifecycleOwner) { hotel ->
             binding.info.name.text = hotel?.name
             binding.info.address.text = hotel?.adress
             binding.info.ratingLayout.rating.text = hotel?.rating.toString() + " " + hotel?.ratingName
@@ -51,6 +54,24 @@ class HotelFragment : Fragment() {
             binding.tvDescription.text = hotel?.aboutTheHotel?.description
 
             binding.btnHotelToRoom.btnNext.text = "К выбору номера"
+
+            peculiarityAdapter.submitList(hotel?.aboutTheHotel?.peculiarities)
         }
+    }
+
+    private fun setUpFeatures() {
+        val featureAdapter = FeatureAdapter()
+        featureAdapter.submitList(viewModel.features)
+        binding.listFeatures.adapter = featureAdapter
+    }
+
+    private fun setUpPeculiarities() {
+        binding.listPeculiarities.layoutManager = StaggeredGridLayoutManager(
+            2,
+            StaggeredGridLayoutManager.HORIZONTAL
+        )
+
+        peculiarityAdapter = PeculiarityAdapter()
+        binding.listPeculiarities.adapter = peculiarityAdapter
     }
 }

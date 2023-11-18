@@ -6,12 +6,18 @@ import ru.blackmirrror.hotel.data.api.ApiService
 import ru.blackmirrror.hotel.data.api.RemoteDataSource
 import ru.blackmirrror.hotel.data.api.RemoteDataSourceImpl
 import ru.blackmirrror.hotel.data.repositories.HotelRepositoryImpl
+import ru.blackmirrror.hotel.data.repositories.RoomRepositoryImpl
 import ru.blackmirrror.hotel.domain.repositories.HotelRepository
+import ru.blackmirrror.hotel.domain.repositories.RoomRepository
 
 val dataModule = module {
 
     single<HotelRepository> {
         HotelRepositoryImpl(remoteDataSource = get())
+    }
+
+    single<RoomRepository> {
+        RoomRepositoryImpl(remoteDataSource = get())
     }
 
     single<RemoteDataSource> {

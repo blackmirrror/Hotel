@@ -101,7 +101,7 @@
             tools:text="за 7 ночей с перелётом" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_room_to_booking"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_m"

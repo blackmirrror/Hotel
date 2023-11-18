@@ -121,7 +121,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="12dp"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="@dimen/margin_s" />
+                        android:layout_marginBottom="@dimen/margin_s"
+                        tools:listitem="@layout/item_peculiarity"/>
 
                     <TextView
                         android:id="@+id/tv_description"

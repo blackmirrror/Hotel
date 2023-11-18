@@ -2,10 +2,15 @@ package ru.blackmirrror.hotel.data.api
 
 import retrofit2.Response
 import ru.blackmirrror.hotel.data.models.HotelResponse
+import ru.blackmirrror.hotel.data.models.RoomsResponse
 
 class RemoteDataSourceImpl(private val service: ApiService): RemoteDataSource {
     override suspend fun getHotel(): NetworkState<HotelResponse> {
         return getNetworkState(service.getHotel())
+    }
+
+    override suspend fun getRooms(): NetworkState<RoomsResponse> {
+        return getNetworkState(service.getRooms())
     }
 
     private inline fun <reified T> getNetworkState(response: Response<T>): NetworkState<T> {
