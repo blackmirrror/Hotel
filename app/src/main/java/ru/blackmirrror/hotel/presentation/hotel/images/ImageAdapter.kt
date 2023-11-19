@@ -1,5 +1,7 @@
 package ru.blackmirrror.hotel.presentation.hotel.images
 
+import android.graphics.Bitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,15 +34,24 @@ class ImageAdapter: ListAdapter<String, ImageAdapter.ImageViewHolder>(
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val imageUrl = getItem(position)
         GlobalScope.launch(Dispatchers.Main) {
-            val bitmap = withContext(Dispatchers.IO) {
-                Glide.with(holder.itemView)
-                    .asBitmap()
-                    .load(imageUrl)
-                    .apply(RequestOptions.centerCropTransform())
-                    .submit()
-                    .get()
+            val bitmap = try {
+                withContext(Dispatchers.IO) {
+                    Glide.with(holder.itemView)
+                        .asBitmap()
+                        .load(imageUrl)
+                        .apply(RequestOptions.centerCropTransform())
+                        .submit()
+                        .get()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            (holder.itemView as ImageView).setImageBitmap(bitmap)
+            try {
+                (holder.itemView as ImageView).setImageBitmap(bitmap as Bitmap?)
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }
