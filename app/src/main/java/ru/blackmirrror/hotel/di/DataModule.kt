@@ -5,8 +5,10 @@ import ru.blackmirrror.hotel.data.api.ApiFactory
 import ru.blackmirrror.hotel.data.api.ApiService
 import ru.blackmirrror.hotel.data.api.RemoteDataSource
 import ru.blackmirrror.hotel.data.api.RemoteDataSourceImpl
+import ru.blackmirrror.hotel.data.repositories.BookingRepositoryImpl
 import ru.blackmirrror.hotel.data.repositories.HotelRepositoryImpl
 import ru.blackmirrror.hotel.data.repositories.RoomRepositoryImpl
+import ru.blackmirrror.hotel.domain.repositories.BookingRepository
 import ru.blackmirrror.hotel.domain.repositories.HotelRepository
 import ru.blackmirrror.hotel.domain.repositories.RoomRepository
 
@@ -18,6 +20,10 @@ val dataModule = module {
 
     single<RoomRepository> {
         RoomRepositoryImpl(remoteDataSource = get())
+    }
+
+    single<BookingRepository> {
+        BookingRepositoryImpl(remoteDataSource = get())
     }
 
     single<RemoteDataSource> {

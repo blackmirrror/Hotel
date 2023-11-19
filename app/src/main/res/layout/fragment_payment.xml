@@ -49,6 +49,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintVertical_bias="0.0"
         android:gravity="center"
+        android:text="@string/msg_order_approval"
         app:layout_constraintBottom_toTopOf="@+id/action_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

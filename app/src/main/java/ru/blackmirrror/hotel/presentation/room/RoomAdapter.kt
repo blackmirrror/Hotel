@@ -11,6 +11,7 @@ import com.google.android.material.button.MaterialButton
 import ru.blackmirrror.hotel.R
 import ru.blackmirrror.hotel.domain.models.Room
 import ru.blackmirrror.hotel.presentation.hotel.peculiarity.PeculiarityAdapter
+import ru.blackmirrror.hotel.presentation.utils.TextFormatter
 
 class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCallback()) {
 
@@ -33,8 +34,8 @@ class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCal
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
         val room = getItem(position)
         holder.title.text = room.name
-        holder.price.text = room.price.toString()
-        holder.pricePer.text = room.pricePer
+        holder.price.text = room.price?.let { TextFormatter.formatPrice(it) }
+        holder.pricePer.text = room.pricePer?.lowercase()
         holder.btnNext.setOnClickListener {
             onRoomNextBtnClickListener?.invoke(room)
         }

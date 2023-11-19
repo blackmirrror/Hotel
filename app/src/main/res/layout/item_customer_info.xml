@@ -30,15 +30,17 @@
             app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/hint">
 
-<!--            <com.example.core.masked_edittext.MaskedEditText-->
-<!--                android:id="@+id/et_phone"-->
-<!--                style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:inputType="phone"-->
-<!--                app:keep_hint="true"-->
-<!--                app:mask="##########"-->
-<!--                mask:allowed_chars="1234567890" />-->
+            <com.vicmikhailau.maskededittext.MaskedEditText
+                android:id="@+id/et_phone"
+                style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:keep_hint="true"
+                app:mask="+# (###) ###-##-##"
+                app:char_representation="+# (###) ###-##-##"
+                mask:allowed_chars="1234567890"
+                android:inputType="phone"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

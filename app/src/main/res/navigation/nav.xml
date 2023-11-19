@@ -35,5 +35,12 @@
         android:id="@+id/paymentFragment"
         android:name="ru.blackmirrror.hotel.presentation.payment.PaymentFragment"
         android:label="fragment_payment"
-        tools:layout="@layout/fragment_payment" />
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_hotelFragment"
+            app:destination="@id/hotelFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/nav"
+            app:launchSingleTop="true"/>
+    </fragment>
 </navigation>

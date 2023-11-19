@@ -1,6 +1,7 @@
 package ru.blackmirrror.hotel.di
 
 import org.koin.dsl.module
+import ru.blackmirrror.hotel.domain.usecases.GetBookingUseCase
 import ru.blackmirrror.hotel.domain.usecases.GetHotelUseCase
 import ru.blackmirrror.hotel.domain.usecases.GetRoomsUseCase
 
@@ -12,5 +13,9 @@ val domainModule = module {
 
     factory {
         GetRoomsUseCase(repository = get())
+    }
+
+    factory {
+        GetBookingUseCase(repository = get())
     }
 }

@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.blackmirrror.hotel.databinding.FragmentHotelBinding
 import ru.blackmirrror.hotel.presentation.hotel.features.FeatureAdapter
 import ru.blackmirrror.hotel.presentation.hotel.peculiarity.PeculiarityAdapter
+import ru.blackmirrror.hotel.presentation.utils.TextFormatter
 
 
 class HotelFragment : Fragment() {
@@ -46,10 +46,10 @@ class HotelFragment : Fragment() {
             viewModel.hotel.observe(viewLifecycleOwner) { hotel ->
             binding.info.name.text = hotel?.name
             binding.info.address.text = hotel?.adress
-            binding.info.ratingLayout.rating.text = hotel?.rating.toString() + " " + hotel?.ratingName
+            binding.info.ratingLayout.rating.text = "${hotel?.rating} ${hotel?.ratingName}"
 
-            binding.price.text = hotel?.minimalPrice.toString()
-            binding.pricePer.text = hotel?.priceForIt
+            binding.price.text = hotel?.minimalPrice?.let { "от ${TextFormatter.formatPrice(it)}" }
+            binding.pricePer.text = hotel?.priceForIt?.lowercase()
 
             binding.tvDescription.text = hotel?.aboutTheHotel?.description
 
