@@ -13,10 +13,10 @@ val appModule = module {
     }
 
     viewModel {
-        RoomViewModel(getRoomsUseCase = get())
+        RoomViewModel(getRoomsUseCase = get(), getHotelUseCase = get())
     }
 
     viewModel {
-        BookingViewModel(getBookingUseCase = get())
+        BookingViewModel(getBookingUseCase = get(), getHotelUseCase = get())
     }
 }

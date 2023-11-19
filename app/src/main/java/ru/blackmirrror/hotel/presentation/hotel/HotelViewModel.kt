@@ -24,7 +24,7 @@ class HotelViewModel(private val getHotelUseCase: GetHotelUseCase) : ViewModel()
 
     private fun getHotel() {
         viewModelScope.launch {
-            val value = getHotelUseCase.execute()
+            val value = getHotelUseCase.execute(TEMP_HOTEL_ID)
             _hotel.postValue(value)
         }
     }
@@ -35,5 +35,9 @@ class HotelViewModel(private val getHotelUseCase: GetHotelUseCase) : ViewModel()
             Feature(2, R.drawable.ic_tick_square, "Что включено", "Самое необходимое"),
             Feature(3, R.drawable.ic_close_square, "Что не включено", "Самое необходимое"),
         )
+    }
+
+    companion object {
+        private const val TEMP_HOTEL_ID = 1
     }
 }

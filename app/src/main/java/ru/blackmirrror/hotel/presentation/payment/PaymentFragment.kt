@@ -1,6 +1,7 @@
 package ru.blackmirrror.hotel.presentation.payment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,11 +22,13 @@ class PaymentFragment : Fragment() {
         binding = FragmentPaymentBinding.inflate(inflater, container, false)
 
         setUpNavigation()
+        setOrderNumber()
 
         return binding.root
     }
 
     private fun setUpNavigation() {
+        binding.toolbar.title.text = getString(R.string.order_paid)
         binding.toolbar.btnBack.setOnClickListener {
             Navigation.findNavController(binding.root).popBackStack()
         }
@@ -37,5 +40,11 @@ class PaymentFragment : Fragment() {
                 Navigation.findNavController(binding.root).navigate(action)
             }
         }
+    }
+
+    private fun setOrderNumber() {
+        val orderNumber = arguments?.getInt(getString(R.string.argument_order_number))?: -1
+        val message = "${getString(R.string.msg_order_first)}${orderNumber} ${getString(R.string.msg_order_last)}"
+        binding.message.text = message
     }
 }

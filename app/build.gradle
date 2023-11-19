@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -61,4 +62,9 @@ dependencies {
 
     // MaskedEditText
     implementation 'io.github.vicmikhailau:MaskedEditText:5.0.1'
+    kapt 'androidx.navigation:navigation-safe-args-gradle-plugin:2.7.5'
+}
+
+kapt {
+    correctErrorTypes true
 }

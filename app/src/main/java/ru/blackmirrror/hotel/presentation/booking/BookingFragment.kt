@@ -1,6 +1,7 @@
 package ru.blackmirrror.hotel.presentation.booking
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import ru.blackmirrror.hotel.R
 import ru.blackmirrror.hotel.databinding.FragmentBookingBinding
 import ru.blackmirrror.hotel.presentation.utils.FieldsChecker
 import ru.blackmirrror.hotel.presentation.utils.TextFormatter
+import java.util.Random
 
 
 class BookingFragment : Fragment() {
@@ -24,14 +26,25 @@ class BookingFragment : Fragment() {
     ): View {
         binding = FragmentBookingBinding.inflate(inflater, container, false)
 
+        loadData()
         setUpNavigation()
-        fillFields()
+        fillBookingFields()
+        fillHotelFields()
         setUpCustomer()
 
         return binding.root
     }
 
+    private fun loadData() {
+        val roomId = arguments?.getInt(getString(R.string.argument_room_id))?: -1
+        viewModel.getBooking(roomId)
+
+        val hotelId = arguments?.getInt(getString(R.string.argument_hotel_id))?: -1
+        viewModel.getHotel(hotelId)
+    }
+
     private fun setUpNavigation() {
+        binding.toolbar.title.text = getString(R.string.booking)
         binding.toolbar.btnBack.setOnClickListener {
             Navigation.findNavController(binding.root).popBackStack()
         }
@@ -40,7 +53,7 @@ class BookingFragment : Fragment() {
         }
     }
 
-    private fun fillFields() {
+    private fun fillBookingFields() {
         viewModel.booking.observe(viewLifecycleOwner) {booking ->
             with(binding.bookingData) {
                 hotel.text = booking?.hotelName
@@ -67,6 +80,16 @@ class BookingFragment : Fragment() {
         }
     }
 
+    private fun fillHotelFields() {
+        viewModel.hotel.observe(viewLifecycleOwner) {hotel ->
+            with(binding.infoMain) {
+                name.text = hotel?.name
+                address.text = hotel?.adress
+                ratingLayout.rating.text = "${hotel?.rating} ${hotel?.ratingName}"
+            }
+        }
+    }
+
     private fun setUpCustomer() {
         binding.bookingCustomer.etPhone.onFocusChangeListener =
             View.OnFocusChangeListener { _, hasFocus ->
@@ -78,11 +101,17 @@ class BookingFragment : Fragment() {
 
     private fun toPayment(email: String) {
         if (FieldsChecker.checkEmail(email)) {
-            val action = BookingFragmentDirections.actionBookingFragmentToPaymentFragment()
+            val randomNumber = (COUNT_DIGITS_ORDER until COUNT_DIGITS_ORDER * 10).random()
+            Log.d("RR", "toPayment: $randomNumber")
+            val action = BookingFragmentDirections.actionBookingFragmentToPaymentFragment(randomNumber)
             Navigation.findNavController(binding.root).navigate(action)
         }
         else {
             binding.bookingCustomer.etMail.setBackgroundResource(R.drawable.bg_rounded_edittext_error)
         }
+    }
+
+    companion object {
+        private const val COUNT_DIGITS_ORDER = 100000
     }
 }

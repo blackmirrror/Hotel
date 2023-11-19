@@ -15,7 +15,8 @@ import ru.blackmirrror.hotel.presentation.utils.TextFormatter
 
 class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCallback()) {
 
-    var onRoomNextBtnClickListener: ((Room) -> Unit)? = null
+    lateinit var onRoomClickListener: OnRoomClickListener
+    //var onRoomNextBtnClickListener(roomId: Int): ((Room) -> Unit)? = null
 
     class RoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -37,7 +38,7 @@ class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCal
         holder.price.text = room.price?.let { TextFormatter.formatPrice(it) }
         holder.pricePer.text = room.pricePer?.lowercase()
         holder.btnNext.setOnClickListener {
-            onRoomNextBtnClickListener?.invoke(room)
+            room.id?.let { it1 -> onRoomClickListener.onRoomClick(it1) }
         }
 
         holder.peculiarities.layoutManager = StaggeredGridLayoutManager(
@@ -47,5 +48,9 @@ class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCal
         val adapter = PeculiarityAdapter()
         adapter.submitList(room.peculiarities)
         holder.peculiarities.adapter = adapter
+    }
+
+    interface OnRoomClickListener {
+        fun onRoomClick(roomId: Int)
     }
 }

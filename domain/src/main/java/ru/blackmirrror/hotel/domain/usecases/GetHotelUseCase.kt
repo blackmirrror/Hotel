@@ -4,7 +4,7 @@ import ru.blackmirrror.hotel.domain.models.Hotel
 import ru.blackmirrror.hotel.domain.repositories.HotelRepository
 
 class GetHotelUseCase(private val repository: HotelRepository) {
-    suspend fun execute(): Hotel? {
+    suspend fun execute(id: Int): Hotel? {
         return repository.getHotel()
     }
 }

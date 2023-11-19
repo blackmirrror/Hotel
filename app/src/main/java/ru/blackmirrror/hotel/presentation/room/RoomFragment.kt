@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.blackmirrror.hotel.R
 import ru.blackmirrror.hotel.databinding.FragmentRoomBinding
 import ru.blackmirrror.hotel.presentation.hotel.peculiarity.PeculiarityAdapter
 
@@ -19,6 +19,7 @@ class RoomFragment : Fragment() {
 
     private lateinit var roomAdapter: RoomAdapter
     private lateinit var peculiarityAdapter: PeculiarityAdapter
+    private var hotelId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,11 +27,18 @@ class RoomFragment : Fragment() {
     ): View {
         binding = FragmentRoomBinding.inflate(inflater, container, false)
 
+        loadRoomsByHotelId()
         setUpNavigation()
         setUpRoomRecycler()
-        observeRooms()
+        observeData()
 
         return binding.root
+    }
+
+    private fun loadRoomsByHotelId() {
+        hotelId = arguments?.getInt(getString(R.string.argument_hotel_id))?: -1
+        viewModel.getRooms(hotelId)
+        viewModel.getHotelName(hotelId)
     }
 
     private fun setUpNavigation() {
@@ -41,16 +49,21 @@ class RoomFragment : Fragment() {
 
     private fun setUpRoomRecycler() {
         roomAdapter = RoomAdapter()
-        roomAdapter.onRoomNextBtnClickListener = {
-            val action = RoomFragmentDirections.actionRoomFragmentToBookingFragment()
-            Navigation.findNavController(binding.root).navigate(action)
+        roomAdapter.onRoomClickListener = object : RoomAdapter.OnRoomClickListener {
+            override fun onRoomClick(roomId: Int) {
+                val action = RoomFragmentDirections.actionRoomFragmentToBookingFragment(roomId, hotelId)
+                Navigation.findNavController(binding.root).navigate(action)
+            }
         }
         binding.listRooms.adapter = roomAdapter
     }
 
-    private fun observeRooms() {
+    private fun observeData() {
         viewModel.rooms.observe(viewLifecycleOwner) {rooms ->
             roomAdapter.submitList(rooms)
+        }
+        viewModel.hotelName.observe(viewLifecycleOwner) {hotelName ->
+            binding.toolbar.title.text = hotelName
         }
     }
 }

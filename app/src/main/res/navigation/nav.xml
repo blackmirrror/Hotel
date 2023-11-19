@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_roomFragment_to_bookingFragment"
             app:destination="@id/bookingFragment" />
+        <argument
+            android:name="hotel_id"
+            app:argType="integer"/>
     </fragment>
     <fragment
         android:id="@+id/bookingFragment"
@@ -30,6 +33,12 @@
         <action
             android:id="@+id/action_bookingFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+        <argument
+            android:name="room_id"
+            app:argType="integer"/>
+        <argument
+            android:name="hotel_id"
+            app:argType="integer"/>
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"
@@ -42,5 +51,8 @@
             app:popUpToInclusive="true"
             app:popUpTo="@+id/nav"
             app:launchSingleTop="true"/>
+        <argument
+            android:name="order_number"
+            app:argType="integer"/>
     </fragment>
 </navigation>

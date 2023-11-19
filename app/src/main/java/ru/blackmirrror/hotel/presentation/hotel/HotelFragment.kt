@@ -20,6 +20,7 @@ class HotelFragment : Fragment() {
     private val viewModel by viewModel<HotelViewModel>()
 
     private lateinit var peculiarityAdapter: PeculiarityAdapter
+    private  var hotelId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +28,6 @@ class HotelFragment : Fragment() {
     ): View {
         binding = FragmentHotelBinding.inflate(inflater, container, false)
 
-        setUpNavigation()
         setUpFeatures()
         setUpPeculiarities()
         setUpFields()
@@ -35,15 +35,15 @@ class HotelFragment : Fragment() {
         return binding.root
     }
 
-    private fun setUpNavigation() {
+    private fun setUpNavigation(hotelId: Int) {
         binding.btnHotelToRoom.btnNext.setOnClickListener {
-            val action = HotelFragmentDirections.actionHotelFragmentToRoomFragment()
+            val action = HotelFragmentDirections.actionHotelFragmentToRoomFragment(hotelId)
             Navigation.findNavController(binding.root).navigate(action)
         }
     }
 
     private fun setUpFields() {
-            viewModel.hotel.observe(viewLifecycleOwner) { hotel ->
+        viewModel.hotel.observe(viewLifecycleOwner) { hotel ->
             binding.info.name.text = hotel?.name
             binding.info.address.text = hotel?.adress
             binding.info.ratingLayout.rating.text = "${hotel?.rating} ${hotel?.ratingName}"
@@ -56,6 +56,8 @@ class HotelFragment : Fragment() {
             binding.btnHotelToRoom.btnNext.text = "К выбору номера"
 
             peculiarityAdapter.submitList(hotel?.aboutTheHotel?.peculiarities)
+
+            setUpNavigation(hotel?.id?: -1)
         }
     }
 
