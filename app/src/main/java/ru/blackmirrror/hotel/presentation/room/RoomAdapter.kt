@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.button.MaterialButton
 import ru.blackmirrror.hotel.R
 import ru.blackmirrror.hotel.domain.models.Room
+import ru.blackmirrror.hotel.presentation.hotel.images.ImageAdapter
 import ru.blackmirrror.hotel.presentation.hotel.peculiarity.PeculiarityAdapter
 import ru.blackmirrror.hotel.presentation.utils.TextFormatter
 
@@ -25,6 +26,7 @@ class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCal
         val pricePer = itemView.findViewById<TextView>(R.id.price_per)
         val btnNext = itemView.findViewById<MaterialButton>(R.id.btn_room_to_booking)
         val peculiarities = itemView.findViewById<RecyclerView>(R.id.list_peculiarities)
+        val images = itemView.findViewById<RecyclerView>(R.id.photo_carousel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
@@ -41,6 +43,14 @@ class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCal
             room.id?.let { it1 -> onRoomClickListener.onRoomClick(it1) }
         }
 
+        setPeculiarities(holder, room)
+        setImages(holder, room)
+    }
+
+    private fun setPeculiarities(
+        holder: RoomViewHolder,
+        room: Room
+    ) {
         holder.peculiarities.layoutManager = StaggeredGridLayoutManager(
             2,
             StaggeredGridLayoutManager.HORIZONTAL
@@ -48,6 +58,15 @@ class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCal
         val adapter = PeculiarityAdapter()
         adapter.submitList(room.peculiarities)
         holder.peculiarities.adapter = adapter
+    }
+
+    private fun setImages(
+        holder: RoomViewHolder,
+        room: Room
+    ) {
+        val adapter = ImageAdapter()
+        adapter.submitList(room.imageUrls)
+        holder.images.adapter = adapter
     }
 
     interface OnRoomClickListener {

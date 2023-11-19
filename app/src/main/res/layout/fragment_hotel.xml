@@ -48,12 +48,14 @@
                         android:id="@+id/list_photo"
                         android:layout_width="0dp"
                         android:layout_height="257dp"
+                        android:layout_marginHorizontal="@dimen/margin_m"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/item_photo_carousel" />
+                        tools:listitem="@layout/item_photo_carousel"
+                        tools:itemCount="4"/>
 
                     <include
                         android:id="@+id/info"

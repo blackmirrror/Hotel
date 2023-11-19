@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_s"
     android:backgroundTint="@color/white"
     app:cardCornerRadius="@dimen/card_radius"
     app:cardElevation="0dp">
@@ -12,16 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
+        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/photo_carousel"
-            layout="@layout/layout_photo_carousel"
             android:layout_width="0dp"
             android:layout_height="257dp"
             android:layout_marginTop="@dimen/margin_m"
             android:layout_marginBottom="@dimen/margin_s"
+            android:layout_marginHorizontal="@dimen/margin_m"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_photo_carousel" />
 
         <TextView
             android:id="@+id/room_title"

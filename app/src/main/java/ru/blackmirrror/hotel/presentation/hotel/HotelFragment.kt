@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.blackmirrror.hotel.databinding.FragmentHotelBinding
 import ru.blackmirrror.hotel.presentation.hotel.features.FeatureAdapter
+import ru.blackmirrror.hotel.presentation.hotel.images.ImageAdapter
 import ru.blackmirrror.hotel.presentation.hotel.peculiarity.PeculiarityAdapter
 import ru.blackmirrror.hotel.presentation.utils.TextFormatter
 
@@ -20,6 +22,7 @@ class HotelFragment : Fragment() {
     private val viewModel by viewModel<HotelViewModel>()
 
     private lateinit var peculiarityAdapter: PeculiarityAdapter
+    private lateinit var imageAdapter: ImageAdapter
     private  var hotelId: Int = -1
 
     override fun onCreateView(
@@ -30,6 +33,7 @@ class HotelFragment : Fragment() {
 
         setUpFeatures()
         setUpPeculiarities()
+        setUpImages()
         setUpFields()
 
         return binding.root
@@ -57,6 +61,8 @@ class HotelFragment : Fragment() {
 
             peculiarityAdapter.submitList(hotel?.aboutTheHotel?.peculiarities)
 
+            imageAdapter.submitList(hotel?.imageUrls)
+
             setUpNavigation(hotel?.id?: -1)
         }
     }
@@ -65,6 +71,11 @@ class HotelFragment : Fragment() {
         val featureAdapter = FeatureAdapter()
         featureAdapter.submitList(viewModel.features)
         binding.listFeatures.adapter = featureAdapter
+    }
+
+    private fun setUpImages() {
+        imageAdapter = ImageAdapter()
+        binding.listPhoto.adapter = imageAdapter
     }
 
     private fun setUpPeculiarities() {
