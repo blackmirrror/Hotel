@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_s"
     app:cardElevation="0dp"
     app:contentPaddingBottom="12dp"
     app:contentPaddingLeft="16dp"
     app:contentPaddingRight="16dp"
     app:contentPaddingTop="12dp"
+    app:cardCornerRadius="@dimen/card_radius"
     app:strokeWidth="0dp">
 
     <LinearLayout
@@ -16,6 +18,7 @@
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/title_tourist_base"
             style="@style/TextAppearance.AppCompat.H5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -23,7 +26,7 @@
             android:text="@string/action_add_tourist" />
 
         <ImageView
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_square" />

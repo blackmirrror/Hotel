@@ -12,5 +12,14 @@ class TextFormatter {
             result = result.replace(",", " ")
             return result
         }
+
+        fun numberToWord(number: Int): String {
+            val units = arrayOf("Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой", "Седьмой", "Восьмой", "Девятый", "Десятый")
+            if (number > 0 && number <= units.size) {
+                return units[number - 1]
+            } else {
+                return "За пределами диапазона"
+            }
+        }
     }
 }

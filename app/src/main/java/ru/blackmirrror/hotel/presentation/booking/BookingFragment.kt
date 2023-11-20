@@ -1,24 +1,25 @@
 package ru.blackmirrror.hotel.presentation.booking
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.blackmirrror.hotel.R
 import ru.blackmirrror.hotel.databinding.FragmentBookingBinding
+import ru.blackmirrror.hotel.presentation.booking.tourists.TouristAdapter
 import ru.blackmirrror.hotel.presentation.utils.FieldsChecker
 import ru.blackmirrror.hotel.presentation.utils.TextFormatter
-import java.util.Random
 
 
 class BookingFragment : Fragment() {
 
     private lateinit var binding: FragmentBookingBinding
     private val viewModel by viewModel<BookingViewModel>()
+
+    private lateinit var touristAdapter: TouristAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,10 +28,11 @@ class BookingFragment : Fragment() {
         binding = FragmentBookingBinding.inflate(inflater, container, false)
 
         loadData()
+        setUpCustomer()
+        setUpTourists()
         setUpNavigation()
         fillBookingFields()
         fillHotelFields()
-        setUpCustomer()
 
         return binding.root
     }
@@ -99,16 +101,38 @@ class BookingFragment : Fragment() {
         }
     }
 
+    private fun setUpTourists() {
+        binding.newTourist.btnAction.setOnClickListener {
+            viewModel.createTourist()
+        }
+
+        touristAdapter = TouristAdapter()
+        viewModel.tourists.observe(viewLifecycleOwner) {tourists ->
+            touristAdapter.submitList(tourists)
+        }
+        binding.listTourists.adapter = touristAdapter
+    }
+
     private fun toPayment(email: String) {
-        if (FieldsChecker.checkEmail(email)) {
+        if (checkEmail(email) and checkTourists()) {
             val randomNumber = (COUNT_DIGITS_ORDER until COUNT_DIGITS_ORDER * 10).random()
-            Log.d("RR", "toPayment: $randomNumber")
             val action = BookingFragmentDirections.actionBookingFragmentToPaymentFragment(randomNumber)
             Navigation.findNavController(binding.root).navigate(action)
         }
-        else {
+
+    }
+
+    private fun checkEmail(email: String): Boolean {
+        return if (FieldsChecker.checkEmail(email)) {
+            true
+        } else {
             binding.bookingCustomer.etMail.setBackgroundResource(R.drawable.bg_rounded_edittext_error)
+            false
         }
+    }
+
+    private fun checkTourists(): Boolean {
+        return touristAdapter.checkTourists(binding.listTourists)
     }
 
     companion object {

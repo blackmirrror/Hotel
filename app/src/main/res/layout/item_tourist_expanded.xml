@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_s"
     android:backgroundTint="@color/white"
     app:cardElevation="0dp"
     app:contentPaddingBottom="12dp"
     app:contentPaddingLeft="16dp"
     app:contentPaddingRight="16dp"
     app:contentPaddingTop="12dp"
+    app:cardCornerRadius="@dimen/card_radius"
     app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,134 +24,144 @@
             style="@style/TextAppearance.AppCompat.H5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/title_barrier"
-            app:layout_constraintEnd_toStartOf="@+id/btn_collapse"
+            app:layout_constraintBottom_toTopOf="@id/ll_fields_tourist"
+            app:layout_constraintEnd_toStartOf="@+id/btn_action"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Первый турист" />
 
         <ImageView
-            android:id="@+id/btn_collapse"
+            android:id="@+id/btn_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_up_square"
-            app:layout_constraintBottom_toTopOf="@id/title_barrier"
+            app:layout_constraintBottom_toTopOf="@id/ll_fields_tourist"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/title_barrier"
+        <LinearLayout
+            android:id="@+id/ll_fields_tourist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:barrierDirection="bottom" />
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/title_tourist">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_name"
-            style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintTextColor="@color/hint"
-            app:layout_constraintTop_toBottomOf="@id/title_barrier">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_name"
-                style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/title_barrier"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_second_name"
-            style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_second_name"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintTextColor="@color/hint"
-            app:layout_constraintTop_toBottomOf="@id/til_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_second_name"
-                style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_name"
+                style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_name"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="@color/hint"
+                app:layout_constraintTop_toBottomOf="@id/title_barrier">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_birthday_date"
-            style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_birthday_date"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintTextColor="@color/hint"
-            app:layout_constraintTop_toBottomOf="@id/til_second_name">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_name"
+                    style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_birthday_date"
-                style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_second_name"
+                style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_second_name"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="@color/hint"
+                app:layout_constraintTop_toBottomOf="@id/til_name">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_citizenship"
-            style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_citizenship"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintTextColor="@color/hint"
-            app:layout_constraintTop_toBottomOf="@id/til_birthday_date">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_second_name"
+                    style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_citizenship"
-                style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_birthday_date"
+                style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_birthday_date"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="@color/hint"
+                app:layout_constraintTop_toBottomOf="@id/til_second_name">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_passport_number"
-            style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_passport_number"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintTextColor="@color/hint"
-            app:layout_constraintTop_toBottomOf="@id/til_citizenship">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_birthday_date"
+                    style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_passport_number"
-                style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_citizenship"
+                style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_citizenship"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="@color/hint"
+                app:layout_constraintTop_toBottomOf="@id/til_birthday_date">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_passport_expiration_date"
-            style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_passport_expiration_date"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintTextColor="@color/hint"
-            app:layout_constraintTop_toBottomOf="@id/til_passport_number">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_citizenship"
+                    style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_passport_expiration_date"
-                style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_passport_number"
+                style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_passport_number"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="@color/hint"
+                app:layout_constraintTop_toBottomOf="@id/til_citizenship">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_passport_number"
+                    style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_passport_expiration_date"
+                style="@style/ThemeOverlay.AppTheme.TextInputLayout.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_passport_expiration_date"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="@color/hint"
+                app:layout_constraintTop_toBottomOf="@id/til_passport_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_passport_expiration_date"
+                    style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,10 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.blackmirrror.hotel.domain.models.Booking
 import ru.blackmirrror.hotel.domain.models.Hotel
-import ru.blackmirrror.hotel.domain.models.Room
+import ru.blackmirrror.hotel.domain.models.local.Tourist
 import ru.blackmirrror.hotel.domain.usecases.GetBookingUseCase
 import ru.blackmirrror.hotel.domain.usecases.GetHotelUseCase
-import ru.blackmirrror.hotel.presentation.hotel.HotelViewModel
 
 class BookingViewModel(
     private val getBookingUseCase: GetBookingUseCase,
@@ -22,6 +21,10 @@ class BookingViewModel(
 
     private val _hotel = MutableLiveData<Hotel?>()
     val hotel: LiveData<Hotel?> = _hotel
+
+    var tourists = MutableLiveData<List<Tourist>>()
+    private var countOfTourists = 0;
+
 
     fun getBooking(roomId: Int) {
         viewModelScope.launch {
@@ -35,5 +38,17 @@ class BookingViewModel(
             val value = getHotelUseCase.execute(hotelId)
             _hotel.postValue(value)
         }
+    }
+
+    fun createTourist() {
+        val currentList = tourists.value.orEmpty().toMutableList()
+        currentList.add(Tourist(id = ++countOfTourists))
+        tourists.value = currentList
+    }
+
+    fun updateTourist(tourist: Tourist, position: Int) {
+        val currentList = tourists.value.orEmpty().toMutableList()
+        currentList[position] = tourist
+        tourists.value = currentList
     }
 }
