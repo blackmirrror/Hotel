@@ -45,9 +45,4 @@ class BookingViewModel(
         currentList.add(Tourist(id = ++countOfTourists))
         tourists.postValue(currentList)
     }
-
-    fun updateTourists(currentList: MutableList<Tourist>) {
-        tourists.postValue(currentList)
-        countOfTourists = currentList.size
-    }
 }

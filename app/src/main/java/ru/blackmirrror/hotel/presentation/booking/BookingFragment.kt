@@ -132,7 +132,6 @@ class BookingFragment : Fragment() {
             val action =
                 BookingFragmentDirections.actionBookingFragmentToPaymentFragment(randomNumber)
             Navigation.findNavController(binding.root).navigate(action)
-            viewModel.updateTourists(touristAdapter.getTourists(binding.listTourists))
         }
 
     }
