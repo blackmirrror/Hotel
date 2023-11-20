@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 import ru.blackmirrror.hotel.domain.models.Room
 import ru.blackmirrror.hotel.domain.usecases.GetHotelUseCase
 import ru.blackmirrror.hotel.domain.usecases.GetRoomsUseCase
-import ru.blackmirrror.hotel.presentation.hotel.HotelViewModel
 
 class RoomViewModel(
     private val getRoomsUseCase: GetRoomsUseCase,

@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.blackmirrror.hotel.R
 import ru.blackmirrror.hotel.databinding.FragmentHotelBinding
 import ru.blackmirrror.hotel.presentation.hotel.features.FeatureAdapter
 import ru.blackmirrror.hotel.presentation.hotel.images.ImageAdapter
@@ -23,7 +23,6 @@ class HotelFragment : Fragment() {
 
     private lateinit var peculiarityAdapter: PeculiarityAdapter
     private lateinit var imageAdapter: ImageAdapter
-    private  var hotelId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,23 +46,21 @@ class HotelFragment : Fragment() {
     }
 
     private fun setUpFields() {
-        viewModel.hotel.observe(viewLifecycleOwner) { hotel ->
-            binding.info.name.text = hotel?.name
-            binding.info.address.text = hotel?.adress
-            binding.info.ratingLayout.rating.text = "${hotel?.rating} ${hotel?.ratingName}"
+        viewModel.hotel.observe(viewLifecycleOwner) { it1 ->
+            val hotel = it1 ?: return@observe
+            binding.info.name.text = hotel.name
+            binding.info.address.text = hotel.adress
+            binding.info.ratingLayout.rating.text = "${hotel.rating} ${hotel.ratingName}"
 
-            binding.price.text = hotel?.minimalPrice?.let { "от ${TextFormatter.formatPrice(it)}" }
-            binding.pricePer.text = hotel?.priceForIt?.lowercase()
+            binding.price.text = hotel.minimalPrice?.let { "от ${TextFormatter.formatPrice(it)}" }
+            binding.pricePer.text = hotel.priceForIt?.lowercase()
 
-            binding.tvDescription.text = hotel?.aboutTheHotel?.description
+            binding.tvDescription.text = hotel.aboutTheHotel?.description
+            binding.btnHotelToRoom.btnNext.text = getString(R.string.action_choose_rooms)
+            peculiarityAdapter.submitList(hotel.aboutTheHotel?.peculiarities)
+            imageAdapter.submitList(hotel.imageUrls)
 
-            binding.btnHotelToRoom.btnNext.text = "К выбору номера"
-
-            peculiarityAdapter.submitList(hotel?.aboutTheHotel?.peculiarities)
-
-            imageAdapter.submitList(hotel?.imageUrls)
-
-            setUpNavigation(hotel?.id?: -1)
+            setUpNavigation(hotel.id ?: -1)
         }
     }
 

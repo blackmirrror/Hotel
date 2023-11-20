@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.blackmirrror.hotel.R
 import ru.blackmirrror.hotel.databinding.FragmentBookingBinding
+import ru.blackmirrror.hotel.domain.models.Booking
 import ru.blackmirrror.hotel.presentation.booking.tourists.TouristAdapter
 import ru.blackmirrror.hotel.presentation.utils.FieldsChecker
 import ru.blackmirrror.hotel.presentation.utils.TextFormatter
@@ -38,10 +39,10 @@ class BookingFragment : Fragment() {
     }
 
     private fun loadData() {
-        val roomId = arguments?.getInt(getString(R.string.argument_room_id))?: -1
+        val roomId = arguments?.getInt(getString(R.string.argument_room_id)) ?: -1
         viewModel.getBooking(roomId)
 
-        val hotelId = arguments?.getInt(getString(R.string.argument_hotel_id))?: -1
+        val hotelId = arguments?.getInt(getString(R.string.argument_hotel_id)) ?: -1
         viewModel.getHotel(hotelId)
     }
 
@@ -56,34 +57,46 @@ class BookingFragment : Fragment() {
     }
 
     private fun fillBookingFields() {
-        viewModel.booking.observe(viewLifecycleOwner) {booking ->
-            with(binding.bookingData) {
-                hotel.text = booking?.hotelName
-                countryCity.text = booking?.arrivalCountry
-                departureFrom.text = booking?.departure
-                dates.text = "${booking?.tourDateStart} - ${booking?.tourDateStop}"
-                nightsCount.text = "${booking?.numberOfNights} ночей"
-                room.text = booking?.room
-                nutrition.text = booking?.nutrition
-            }
+        viewModel.booking.observe(viewLifecycleOwner) {
+            val booking = it ?: return@observe
+            setBookingData(booking)
+            setBookingPrice(booking)
 
-            with(binding.bookingPrice) {
-                tour.text = booking?.tourPrice?.let { TextFormatter.formatPrice(it) }
-                fuelCharge.text = booking?.fuelCharge?.let { TextFormatter.formatPrice(it) }
-                serviceCharge.text = booking?.serviceCharge?.let { TextFormatter.formatPrice(it) }
-                total.text = TextFormatter.formatPrice(booking?.tourPrice!!
-                        + booking.fuelCharge!! + booking.serviceCharge!!
+            binding.actionButtonLayout.btnNext.text = "Оплатить ${
+                TextFormatter.formatPrice(
+                    booking.tourPrice!!
+                            + booking.fuelCharge!! + booking.serviceCharge!!
                 )
-            }
-            binding.actionButtonLayout.btnNext.text = "Оплатить " +
-                TextFormatter.formatPrice(booking?.tourPrice!!
-                    + booking?.fuelCharge!! + booking?.serviceCharge!!
+            }"
+        }
+    }
+
+    private fun setBookingData(booking: Booking) {
+        with(binding.bookingData) {
+            hotel.text = booking.hotelName
+            countryCity.text = booking.arrivalCountry
+            departureFrom.text = booking.departure
+            dates.text = "${booking.tourDateStart} - ${booking.tourDateStop}"
+            nightsCount.text = "${booking.numberOfNights} ночей"
+            room.text = booking.room
+            nutrition.text = booking.nutrition
+        }
+    }
+
+    private fun setBookingPrice(booking: Booking) {
+        with(binding.bookingPrice) {
+            tour.text = booking.tourPrice?.let { TextFormatter.formatPrice(it) }
+            fuelCharge.text = booking.fuelCharge?.let { TextFormatter.formatPrice(it) }
+            serviceCharge.text = booking.serviceCharge?.let { TextFormatter.formatPrice(it) }
+            total.text = TextFormatter.formatPrice(
+                booking.tourPrice!!
+                        + booking.fuelCharge!! + booking.serviceCharge!!
             )
         }
     }
 
     private fun fillHotelFields() {
-        viewModel.hotel.observe(viewLifecycleOwner) {hotel ->
+        viewModel.hotel.observe(viewLifecycleOwner) { hotel ->
             with(binding.infoMain) {
                 name.text = hotel?.name
                 address.text = hotel?.adress
@@ -98,7 +111,7 @@ class BookingFragment : Fragment() {
                 if (hasFocus) {
                     binding.bookingCustomer.etPhone.setText("7")
                 }
-        }
+            }
     }
 
     private fun setUpTourists() {
@@ -107,7 +120,7 @@ class BookingFragment : Fragment() {
         }
 
         touristAdapter = TouristAdapter()
-        viewModel.tourists.observe(viewLifecycleOwner) {tourists ->
+        viewModel.tourists.observe(viewLifecycleOwner) { tourists ->
             touristAdapter.submitList(tourists)
         }
         binding.listTourists.adapter = touristAdapter
@@ -116,8 +129,10 @@ class BookingFragment : Fragment() {
     private fun toPayment(email: String) {
         if (checkEmail(email) and checkTourists()) {
             val randomNumber = (COUNT_DIGITS_ORDER until COUNT_DIGITS_ORDER * 10).random()
-            val action = BookingFragmentDirections.actionBookingFragmentToPaymentFragment(randomNumber)
+            val action =
+                BookingFragmentDirections.actionBookingFragmentToPaymentFragment(randomNumber)
             Navigation.findNavController(binding.root).navigate(action)
+            viewModel.updateTourists(touristAdapter.getTourists(binding.listTourists))
         }
 
     }

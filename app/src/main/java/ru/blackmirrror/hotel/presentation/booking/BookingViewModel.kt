@@ -43,12 +43,11 @@ class BookingViewModel(
     fun createTourist() {
         val currentList = tourists.value.orEmpty().toMutableList()
         currentList.add(Tourist(id = ++countOfTourists))
-        tourists.value = currentList
+        tourists.postValue(currentList)
     }
 
-    fun updateTourist(tourist: Tourist, position: Int) {
-        val currentList = tourists.value.orEmpty().toMutableList()
-        currentList[position] = tourist
-        tourists.value = currentList
+    fun updateTourists(currentList: MutableList<Tourist>) {
+        tourists.postValue(currentList)
+        countOfTourists = currentList.size
     }
 }

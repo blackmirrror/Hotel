@@ -9,14 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.blackmirrror.hotel.R
 
 
-class PeculiarityAdapter: ListAdapter<String, PeculiarityAdapter.PeculiarityViewHolder>(PeculiarityItemDiffCallback()) {
+class PeculiarityAdapter :
+    ListAdapter<String, PeculiarityAdapter.PeculiarityViewHolder>(PeculiarityItemDiffCallback()) {
 
     class PeculiarityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text = itemView.findViewById<TextView>(R.id.tv_peculiarity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeculiarityViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_peculiarity, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_peculiarity, parent, false)
         return PeculiarityViewHolder(view)
     }
 

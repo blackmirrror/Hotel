@@ -147,6 +147,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin_m"
+                            android:divider="@drawable/feature_divider"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/item_feature_button"
                             tools:itemCount="3"/>

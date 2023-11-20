@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.blackmirrror.hotel.R
 import ru.blackmirrror.hotel.domain.models.local.Feature
 
-class FeatureAdapter: ListAdapter<Feature, FeatureAdapter.FeatureViewHolder>(FeatureItemDiffCallback()) {
+class FeatureAdapter :
+    ListAdapter<Feature, FeatureAdapter.FeatureViewHolder>(FeatureItemDiffCallback()) {
 
     class FeatureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -20,7 +21,8 @@ class FeatureAdapter: ListAdapter<Feature, FeatureAdapter.FeatureViewHolder>(Fea
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeatureViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_feature_button, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_feature_button, parent, false)
         return FeatureViewHolder(view)
     }
 

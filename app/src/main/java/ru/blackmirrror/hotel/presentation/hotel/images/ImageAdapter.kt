@@ -1,7 +1,6 @@
 package ru.blackmirrror.hotel.presentation.hotel.images
 
 import android.graphics.Bitmap
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.blackmirrror.hotel.R
 
-class ImageAdapter: ListAdapter<String, ImageAdapter.ImageViewHolder>(
+class ImageAdapter : ListAdapter<String, ImageAdapter.ImageViewHolder>(
     ImageItemDiffCallback()
 ) {
 
@@ -26,7 +25,8 @@ class ImageAdapter: ListAdapter<String, ImageAdapter.ImageViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_photo_carousel, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_photo_carousel, parent, false)
         return ImageViewHolder(view)
     }
 
@@ -46,12 +46,7 @@ class ImageAdapter: ListAdapter<String, ImageAdapter.ImageViewHolder>(
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            try {
-                (holder.itemView as ImageView).setImageBitmap(bitmap as Bitmap?)
-            }
-            catch (e: Exception) {
-                e.printStackTrace()
-            }
+            (holder.itemView as ImageView).setImageBitmap(bitmap as? Bitmap?)
         }
     }
 }

@@ -44,6 +44,17 @@ class TouristAdapter :
             changeExpanded(holder)
         }
         holder.title.text = "${TextFormatter.numberToWord(tourist.id)} турист"
+
+        fillFields(holder, tourist)
+    }
+
+    private fun fillFields(holder: TouristViewHolder, tourist: Tourist) {
+        holder.firstName.setText(tourist.firstName)
+        holder.lastName.setText(tourist.lastName)
+        holder.birthDate.setText(tourist.birthDate)
+        holder.citizenship.setText(tourist.citizenship)
+        holder.passNum.setText(tourist.passportNumber)
+        holder.passDate.setText(tourist.passportTerm)
     }
 
     private fun changeExpanded(holder: TouristViewHolder) {
@@ -59,11 +70,14 @@ class TouristAdapter :
 
     fun checkTourists(recyclerView: RecyclerView): Boolean {
         for (i in 0 until itemCount) {
-            val holder = recyclerView.findViewHolderForAdapterPosition(i) as TouristViewHolder
+            val holder =
+                recyclerView.findViewHolderForAdapterPosition(i) as TouristViewHolder?
+                    ?: return true
             if (!holder.isExpanded) changeExpanded(holder)
-            return (updateColor(holder.firstName) and updateColor(holder.lastName) and
+            val res = (updateColor(holder.firstName) and updateColor(holder.lastName) and
                     updateColor(holder.birthDate) and updateColor(holder.citizenship)
                     and updateColor(holder.passNum) and updateColor(holder.passDate))
+            if (!res) return false
         }
         return true
     }
@@ -77,5 +91,24 @@ class TouristAdapter :
             field.setBackgroundResource(R.drawable.bg_rounded_edittext)
         }
         return true
+    }
+
+    fun getTourists(recyclerView: RecyclerView): MutableList<Tourist> {
+        val tourists = mutableListOf<Tourist>()
+        for (i in 0 until itemCount) {
+            val holder =
+                recyclerView.findViewHolderForAdapterPosition(i) as TouristViewHolder?
+            val tourist = Tourist(
+                id = getItem(i).id,
+                firstName = holder?.firstName?.text.toString(),
+                lastName = holder?.lastName?.text.toString(),
+                birthDate = holder?.birthDate?.text.toString(),
+                citizenship = holder?.citizenship?.text.toString(),
+                passportNumber = holder?.passNum?.text.toString(),
+                passportTerm = holder?.passDate?.text.toString()
+            )
+            tourists.add(tourist)
+        }
+        return tourists
     }
 }

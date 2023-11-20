@@ -14,10 +14,9 @@ import ru.blackmirrror.hotel.presentation.hotel.images.ImageAdapter
 import ru.blackmirrror.hotel.presentation.hotel.peculiarity.PeculiarityAdapter
 import ru.blackmirrror.hotel.presentation.utils.TextFormatter
 
-class RoomAdapter: ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCallback()) {
+class RoomAdapter : ListAdapter<Room, RoomAdapter.RoomViewHolder>(RoomItemDiffCallback()) {
 
     lateinit var onRoomClickListener: OnRoomClickListener
-    //var onRoomNextBtnClickListener(roomId: Int): ((Room) -> Unit)? = null
 
     class RoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

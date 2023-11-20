@@ -12,6 +12,7 @@
     <string name="msg_customer_info">Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту</string>
 
     <string name="action_choose_room">Выбрать номер</string>
+    <string name="action_choose_rooms">К выбору номера</string>
     <string name="action_add_tourist">Добавить туриста</string>
 
     <string name="title_customer_info">Информация о покупателе</string>
